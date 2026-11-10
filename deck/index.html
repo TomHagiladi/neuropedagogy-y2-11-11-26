@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מוטיבציה בבית הספר</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+/* ================= LOOK ================= */
+:root{
+  --accent:#75B743; --accent-dk:#5E9A28; --accent-pale:#EDF5E4; --accent-tint:#F5FAF0;
+  --accent-2:#AF242A; --red-pale:#FBEDEE; --ink:#4A4845; --muted:#7A7874; --paper:#FFFFFF; --line:#E2E7DB;
+  --sep-bg:#9ED174;
+}
+h1{font-weight:800;font-size:72px;line-height:1.12;color:var(--accent-dk)}
+h2{font-weight:800;font-size:50px;line-height:1.2;margin-bottom:22px;color:var(--ink)}
+p,li{font-size:28px;line-height:1.55;font-weight:300}
+.huge{font-size:56px;line-height:1.3;font-weight:800}
+.lead{font-size:34px;line-height:1.5}
+.dim{color:var(--muted)}
+.r{color:var(--accent-2);font-weight:700}
+.g{color:var(--accent-dk);font-weight:700}
+.kicker{font-size:19px;letter-spacing:3px;color:var(--accent-dk);font-weight:700;margin-bottom:8px}
+.rule{width:76px;height:5px;background:var(--accent);margin:18px 0 22px;border-radius:3px}
+.en{direction:ltr;unicode-bidi:isolate;font-weight:500}
+ul{list-style:none}
+.logo{position:absolute;top:36px;left:60px;width:150px}
+/* tilted-squares motif from the logo */
+.sq{position:absolute;border-radius:3px;transform:rotate(24deg)}
+.sq.o{border:4px solid var(--accent)} .sq.rf{background:var(--accent-2)} .sq.gf{background:var(--accent)} .sq.ro{border:4px solid var(--accent-2)}
+/* cards */
+.cols{display:flex;gap:26px}
+.card{flex:1;background:#fff;border:2px solid var(--line);border-radius:12px;padding:26px 28px}
+.card h4{font-size:32px;font-weight:800;margin-bottom:12px;color:var(--accent-dk)}
+.card p{font-size:26px;line-height:1.5}
+.card.big-t{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.card.big-t .ic{font-size:96px;margin-bottom:26px}
+.card.big-t h4{font-size:46px;margin:0}
+.card.tint{background:var(--accent-tint);border-color:var(--accent)}
+.card.red{background:var(--red-pale);border-color:#E9C3C5}
+.card.red h4{color:var(--accent-2)}
+.ic{font-size:44px;line-height:1;margin-bottom:12px}
+/* chips */
+.chips{display:flex;gap:16px;flex-wrap:wrap}
+.chip{background:var(--accent-pale);border:2px solid var(--accent);border-radius:40px;padding:10px 26px;font-size:28px;font-weight:500;color:var(--accent-dk)}
+.chip.q{background:#fff;border-style:dashed;color:var(--muted)}
+.qbox{background:var(--accent-tint);border-right:8px solid var(--accent);border-radius:10px;padding:24px 30px;font-size:34px;line-height:1.45;font-weight:500}
+/* tension rows */
+.tens{display:flex;flex-direction:column;gap:14px}
+.trow{display:flex;align-items:stretch;gap:0;border-radius:10px;overflow:hidden;border:2px solid var(--line)}
+.trow .lab{width:170px;flex:0 0 170px;background:var(--ink);color:#fff;font-size:22px;font-weight:700;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px}
+.trow .up{flex:1;background:var(--accent-tint);padding:12px 20px;font-size:24px;line-height:1.35;display:flex;align-items:center;gap:12px}
+.trow .dn{flex:1;background:var(--red-pale);padding:12px 20px;font-size:24px;line-height:1.35;display:flex;align-items:center;gap:12px}
+.trow .up:before{content:"▲";color:var(--accent-dk);font-size:18px}
+.trow .dn:before{content:"▼";color:var(--accent-2);font-size:18px}
+.thead{display:flex;font-size:22px;font-weight:700;color:var(--muted)}
+.thead span{flex:1;padding:0 20px} .thead span:first-child{flex:0 0 170px}
+/* method chain */
+.chain{display:flex;gap:18px;align-items:stretch}
+.step{flex:1;background:#fff;border:2px solid var(--line);border-radius:12px;padding:22px 20px;position:relative}
+.step .n{width:46px;height:46px;border-radius:8px;transform:rotate(24deg);background:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.step .n span{transform:rotate(-24deg);color:#fff;font-weight:800;font-size:24px}
+.step h4{font-size:29px;font-weight:800;color:var(--ink);margin-bottom:8px}
+.step p{font-size:23px;line-height:1.45}
+.step.done{background:var(--accent-tint);border-color:var(--accent)}
+.step .badge{position:absolute;top:18px;left:18px;background:var(--accent-2);color:#fff;font-size:18px;font-weight:700;border-radius:20px;padding:3px 14px}
+.arrow{align-self:center;font-size:34px;color:var(--accent);font-weight:800}
+.quote{font-size:52px;font-weight:800;line-height:1.25;color:var(--accent-dk)}
+.quote small{display:block;font-size:24px;font-weight:400;color:var(--muted);margin-top:8px}
+/* prompts */
+.prompt{background:var(--accent-tint);border:1px solid var(--line);border-right:7px solid var(--accent);border-radius:8px;padding:18px 26px;font-size:30px;line-height:1.45;font-weight:400;margin-bottom:14px;display:flex;gap:18px;align-items:baseline}
+.prompt b{color:var(--accent-dk);font-size:26px}
+/* numbered steps */
+ol.steps{list-style:none;counter-reset:n}
+ol.steps li{counter-increment:n;position:relative;padding-right:62px;margin:0 0 15px;font-size:27px;line-height:1.4;font-weight:400}
+ol.steps li:before{content:counter(n);position:absolute;right:0;top:0;width:42px;height:42px;border-radius:8px;background:var(--accent);color:#fff;font-weight:800;font-size:23px;display:flex;align-items:center;justify-content:center}
+ol.steps .en{display:block;font-size:27px;color:var(--accent-dk);font-weight:700;text-align:right}
+/* agenda */
+.agenda{display:flex;flex-direction:column;gap:14px}
+.agenda .it{display:flex;align-items:center;gap:18px;font-size:34px;font-weight:400}
+.agenda .it .n{font-size:20px;font-weight:800;color:var(--accent-dk);min-width:34px}
+.agenda .it.act{font-weight:800}
+.agenda .it.act:after{content:"";width:15px;height:15px;background:#fff;border:3px solid var(--accent-2);transform:rotate(24deg);border-radius:2px;margin-right:6px}
+/* separator / break */
+.slide.sep{background:var(--sep-bg);color:#fff}
+.slide.sep .stroke{-webkit-text-stroke:1px #1F1E1C;paint-order:stroke fill;text-shadow:0 1px 3px rgba(0,0,0,.3)}
+.slide.sep .agenda .it{color:rgba(255,255,255,.75)} .slide.sep .agenda .it .n{color:#fff}
+.slide.sep .agenda .it.act{color:#fff}
+.logo-card{position:absolute;top:36px;left:60px;background:#fff;border-radius:12px;padding:10px 16px}
+.logo-card img{width:140px;display:block}
+#timer{font-size:150px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+#tbtn{background:#fff;color:var(--accent-dk);border:none;border-radius:40px;padding:14px 36px;font-size:28px;font-weight:700;font-family:inherit;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+#back{font-size:34px;font-weight:700;margin-top:14px;min-height:46px}
+.qr{width:270px;height:270px;border:10px solid #fff;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.18)}
+
+/* ================= MECHANICS - keep ================= */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#2E2D2A;overflow:hidden;font-family:'Heebo',Arial,sans-serif}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#deck{width:1280px;height:720px;flex:0 0 1280px;position:relative;transform-origin:center center;
+  overflow:hidden;background:var(--paper);box-shadow:0 24px 80px rgba(0,0,0,.55)}
+.slide{position:absolute;inset:0;padding:48px 72px;display:none;flex-direction:column;
+  background:var(--paper);color:var(--ink);overflow:hidden}
+.slide.on{display:flex}
+.mid{justify-content:center;text-align:center;align-items:center}
+.fill{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center}
+.f{opacity:0;transform:translateY(9px);transition:opacity .3s ease,transform .3s ease}
+.f.vis{opacity:1;transform:none}
+#bar{position:fixed;bottom:0;right:0;height:4px;background:var(--accent);transition:width .25s ease;z-index:9}
+#num{position:fixed;bottom:14px;left:20px;color:#8d8b86;font-size:13px;letter-spacing:1px;z-index:9}
+#help{position:fixed;bottom:14px;right:20px;color:#75736e;font-size:12px;z-index:9}
+</style>
+</head>
+<body>
+<div id="stage"><div id="deck">
+
+<!-- 1 title -->
+<section class="slide">
+  <div class="sq o" style="width:120px;height:120px;left:120px;top:250px"></div>
+  <div class="sq rf" style="width:58px;height:58px;left:250px;top:200px"></div>
+  <div class="sq gf" style="width:40px;height:40px;left:90px;top:430px"></div>
+  <div class="sq ro" style="width:76px;height:76px;left:230px;top:420px"></div>
+  <div class="fill" style="padding-left:270px">
+    <h1 style="font-size:92px;white-space:nowrap">מוטיבציה בבית הספר</h1>
+    <div class="rule" style="width:110px;height:7px"></div>
+  </div>
+</section>
+
+<!-- 2 ground rules -->
+<section class="slide">
+  <div class="kicker">השיחה</div>
+  <h2>לפני שמתחילים</h2>
+  <div class="cols" style="align-items:stretch;height:380px;margin-top:40px">
+    <div class="card tint f"><div class="ic">💬</div><h4>שיחה, לא הרצאה</h4><p>כל אחד מדבר מהמקום שלו: מהכיתה, מהחדר של המנהלת, מהבית.</p></div>
+    <div class="card f"><div class="ic">⚖️</div><h4>אין נכון ולא נכון</h4><p>מעניינים אותנו גם הספקות, גם מה שמפחיד, גם מה שמלהיב.</p></div>
+    <div class="card red f"><div class="ic">🎙️</div><h4>אנחנו מקליטים</h4><p>כדי שאחרי ההפסקה <span class="r">נעבוד עם מה שאמרנו</span> כאן.</p></div>
+  </div>
+</section>
+
+<!-- 3 round A -->
+<section class="slide">
+  <div class="kicker">סבב א'</div>
+  <h2>מוטיבציה <span class="r">תלוית הקשר</span></h2>
+  <div class="fill" style="gap:30px">
+    <div class="qbox"><span class="r">אותו אדם, מוטיבציות אחרות</span> - מה מערך המוטיבציות שלכם כשאתם בבית, ומה מערך המוטיבציות כשאתם בעבודה?</div>
+    <div class="qbox f">ובבית הספר: בשביל מה בכלל <span class="r">התכנסנו</span>? מה המשימה?</div>
+  </div>
+</section>
+
+<!-- 4 round B -->
+<section class="slide">
+  <div class="kicker">סבב ב'</div>
+  <h2>שלושה שחקנים, שלוש מערכות מוטיבציה</h2>
+  <div class="cols" style="height:400px;margin-top:30px">
+    <div class="card tint f big-t"><div class="ic">🎒</div><h4>תלמידים</h4></div>
+    <div class="card tint f big-t"><div class="ic">🍎</div><h4>מורים</h4></div>
+    <div class="card tint f big-t"><div class="ic">🗝️</div><h4>בעלי תפקידים</h4></div>
+  </div>
+</section>
+
+<!-- 5 round C -->
+<section class="slide">
+  <div class="kicker">סבב ג'</div>
+  <h2>הבינה נכנסת <span class="r">למשחק</span></h2>
+  <div class="fill">
+    <div class="qbox" style="font-size:52px;line-height:1.35;padding:44px 50px;font-weight:700">איך הבינה המלאכותית השפיעה על המוטיבציה <span class="r">שלכם</span> בעבודה?</div>
+  </div>
+</section>
+
+<!-- 6 closing round -->
+<section class="slide mid">
+  <div class="sq o" style="width:150px;height:150px;right:90px;top:90px"></div>
+  <div class="sq rf" style="width:56px;height:56px;right:250px;top:70px"></div>
+  <div class="sq gf" style="width:46px;height:46px;left:120px;bottom:120px"></div>
+  <div class="sq ro" style="width:110px;height:110px;left:170px;bottom:170px"></div>
+  <div class="kicker">סבב סגירה</div>
+  <p class="huge" style="font-size:44px;font-weight:400;margin:10px 0 24px">משפט אחד מכל אחד:</p>
+  <p class="huge" style="font-size:66px;color:var(--accent-dk)">מה אני <span class="r">לוקח</span> מהשיחה הזו?</p>
+</section>
+
+<!-- 7 method reveal -->
+<section class="slide">
+  <div class="kicker">מה עשינו עכשיו</div>
+  <div class="quote" style="margin:6px 0 34px">"אנושי אנושי מקדים <span class="r">לאנושי בינתי</span>"<small>אהוד נורי</small></div>
+  <div class="chain" style="flex:1;min-height:0;max-height:330px">
+    <div class="step done f"><span class="badge">עשינו</span><div class="n"><span>1</span></div><h4>בירור אנושי</h4><p>שיחה על המוטיבציות וההקשר שלנו, לפני שפותחים מסך</p></div>
+    <div class="arrow f">←</div>
+    <div class="step f"><div class="n"><span>2</span></div><h4>תיעוד</h4><p>ההקלטה הופכת לטקסט שאפשר לעבוד איתו</p></div>
+    <div class="arrow f">←</div>
+    <div class="step f"><div class="n"><span>3</span></div><h4>מחוון ובינה</h4><p>הידע המקצועי ומה שאמרנו כאן, יחד באותה מחברת</p></div>
+    <div class="arrow f">←</div>
+    <div class="step f"><div class="n"><span>4</span></div><h4>פרקטיקות</h4><p>לכיתה שלי, לבית הספר שלי</p></div>
+  </div>
+</section>
+
+<!-- 8 last year vs this year -->
+<section class="slide">
+  <div class="kicker">מה השתנה</div>
+  <h2>משנה שעברה לשנה הזו</h2>
+  <div class="cols" style="flex:1;min-height:0;max-height:340px;margin-top:8px">
+    <div class="card"><h4 style="color:var(--muted)">שנה שעברה</h4>
+      <p>מנגנון נוירופדגוגי + נושא השיעור</p>
+      <p style="font-size:34px;color:var(--accent);margin:4px 0">↓</p>
+      <p>הבינה בונה <b>מערך שיעור</b></p>
+      <p class="dim" style="font-size:22px;margin-top:12px">גשר בין התיאוריה לפרקטיקה</p>
+    </div>
+    <div class="card tint f"><h4>השנה</h4>
+      <p>מנגנון + <span class="r">השיחה שלנו</span> + ההקשר של בית הספר</p>
+      <p style="font-size:34px;color:var(--accent);margin:4px 0">↓</p>
+      <p>הבינה <b>חושבת איתנו</b> על פרקטיקות</p>
+      <p class="dim" style="font-size:22px;margin-top:12px">קודם פרקטיקות כלליות, אחר כך הכיתה הספציפית</p>
+    </div>
+  </div>
+  <p class="f" style="margin-top:24px;font-size:34px;font-weight:700;text-align:center">לא פקודה ותשובה - <span class="r">שיחה</span></p>
+</section>
+
+<!-- 9 break -->
+<section class="slide sep mid">
+  <div class="sq o" style="width:140px;height:140px;right:100px;bottom:90px;border-color:#fff"></div>
+  <div class="sq rf" style="width:54px;height:54px;right:260px;bottom:70px"></div>
+  <h2 class="stroke" style="color:#fff;font-size:60px;margin-bottom:6px">הפסקה</h2>
+  <div id="timer" class="stroke">10:00</div>
+  <div id="back" class="stroke"></div>
+  <button id="tbtn">התחלת ספירה</button>
+  <p style="margin-top:26px;font-size:24px;color:#fff;font-weight:500" class="stroke">בינתיים: ההקלטה הופכת לטקסט ונכנסת למחברת</p>
+</section>
+
+<!-- 10 demo: two sources -->
+<section class="slide">
+  <div class="kicker">הדגמה</div>
+  <h2>המחברת: שני מקורות, שיחה אחת</h2>
+  <div class="cols" style="margin-top:10px">
+    <div class="card tint f"><div class="ic">📄</div><h4>מחוון המוטיבציה</h4><p>מנגנוני הגמול והצפי המוחי: הידע המקצועי</p></div>
+    <div class="card red f"><div class="ic">🎙️</div><h4>השיחה שלנו</h4><p>מה שאמרנו כאן על בית הספר שלנו: ההקשר האנושי</p></div>
+  </div>
+  <div class="f" style="text-align:center;font-size:40px;color:var(--accent);margin:8px 0;line-height:1">↓</div>
+  <div class="card f" style="flex:0 0 auto;text-align:center;border-color:var(--accent);border-width:3px">
+    <h4 style="margin-bottom:6px">מחברת ג'מיני (לשעבר נוטבוק אל-אם)</h4>
+    <p>כיוונון של הבינה לבית הספר שלנו - <span class="r">לא תשובות כלליות</span></p>
+  </div>
+</section>
+
+<!-- 11 how to ask -->
+<section class="slide">
+  <div class="kicker">הדגמה</div>
+  <h2>לברר איתה, <span class="r">לא לבקש ממנה</span></h2>
+  <div class="prompt f"><b>1</b><span>לפני שאת מציעה משהו: מה חוזר שוב ושוב בשיחה שלנו, ומה חסר בה?</span></div>
+  <div class="prompt f"><b>2</b><span>חברי בין מה שאמרנו לבין העוגנים של המחוון. איפה יש התאמה, ואיפה יש מתח?</span></div>
+  <div class="prompt f"><b>3</b><span>שאלי אותי שלוש שאלות על הכיתה שלי, ורק אחרי שאענה הציעי שלוש פרקטיקות קטנות למחר בבוקר.</span></div>
+  <div class="chips f" style="margin-top:8px;justify-content:center">
+    <span class="chip">קצרי</span><span class="chip">הרחיבי</span><span class="chip">אני לא מסכים, כי...</span><span class="chip">לא הבנתי, נסי שוב</span>
+  </div>
+</section>
+
+<!-- 12 practice -->
+<section class="slide">
+  <div class="kicker">עכשיו אתם</div>
+  <h2>הנחיות לתרגול</h2>
+  <div style="display:flex;gap:50px;flex:1;min-height:0;align-items:center">
+    <ol class="steps" style="flex:1">
+      <li class="f">סרקו את הברקוד: בתיקייה המחוון והקלטת השיחה. הורידו את שניהם.</li>
+      <li class="f">פתחו מחברת חדשה, והעלו את שני הקבצים כמקורות:<span class="en">notebook.google.com</span></li>
+      <li class="f">בחרו <span class="r">עוגן אחד</span> מהמחוון. לא את כולו.</li>
+      <li class="f">ספרו לה בשתי שורות על ההקשר. מנהלות: בית הספר. מורות: הכיתה.</li>
+      <li class="f">צאו עם <span class="r">שלוש פרקטיקות</span> שלא הכרתם. נשתף בסבב הסיכום.</li>
+    </ol>
+    <div class="f" style="text-align:center;flex:0 0 auto">
+      <img src="assets/qr-folder.png" class="qr" alt="ברקוד לתיקיית החומרים">
+      <p style="font-size:22px;margin-top:10px;font-weight:500">התיקייה עם המחוון וההקלטה</p>
+    </div>
+  </div>
+</section>
+
+<!-- 13 what we take -->
+<section class="slide">
+  <div class="kicker">סיכום</div>
+  <h2>מה לוקחים מכאן</h2>
+  <div class="cols" style="flex:1;min-height:0;max-height:330px;margin-top:8px">
+    <div class="card tint f"><div class="ic">🔁</div><h4>דרך עבודה</h4><p>קודם בינינו, אחר כך הבינה - עם המחוון <span class="r">ועם מה שאמרנו</span>.</p></div>
+    <div class="card tint f"><div class="ic">✅</div><h4>שלוש פרקטיקות</h4><p>לכיתה שלי או לבית הספר שלי, <span class="r">לנסות כבר מחר</span>.</p></div>
+  </div>
+  <p class="f" style="margin-top:26px;font-size:28px;text-align:center"><b>המפגש הבא:</b> רביעי 16.12 &middot; זיכרון והקשר, והנדסת שאלות</p>
+</section>
+
+</div></div>
+<div id="bar"></div><div id="num"></div>
+<div id="help">← קדימה · → אחורה · F מסך מלא</div>
+
+<script>
+(function(){
+  const deck=document.getElementById('deck'), slides=[...deck.querySelectorAll('.slide')];
+  const bar=document.getElementById('bar'), num=document.getElementById('num');
+  let si=0, fi=0, lockHash=false;
+  function frags(){ return [...slides[si].querySelectorAll('.f')]; }
+  function render(){
+    slides.forEach((s,i)=>s.classList.toggle('on', i===si));
+    frags().forEach((f,i)=>f.classList.toggle('vis', i<fi));
+    bar.style.width=((si+1)/slides.length*100)+'%';
+    num.textContent=(si+1)+' / '+slides.length;
+    lockHash=true; location.hash=(si+1); setTimeout(()=>{lockHash=false;},0);
+    deck.querySelectorAll('video').forEach(v=>{ if(!v.closest('.slide').classList.contains('on')) v.pause(); });
+  }
+  function next(){
+    const v=slides[si].querySelector('video');
+    if(v && !v.dataset.played){ v.dataset.played='1'; v.play(); return; }
+    if(fi<frags().length){ fi++; } else if(si<slides.length-1){ si++; fi=0; }
+    render();
+  }
+  function prev(){ if(fi>0){ fi--; } else if(si>0){ si--; fi=frags().length; } render(); }
+  function goto(n){ si=Math.max(0,Math.min(slides.length-1,n)); fi=frags().length; render(); }
+  // Hebrew deck reads right-to-left: LEFT = forward, RIGHT = back (Tom, 3.10.2026)
+  document.addEventListener('keydown', e=>{
+    if(e.target.tagName==='VIDEO') return;
+    switch(e.key){
+      case 'ArrowLeft': case 'PageDown': case ' ': case 'Enter': e.preventDefault(); next(); break;
+      case 'ArrowRight': case 'PageUp': case 'Backspace': e.preventDefault(); prev(); break;
+      case 'ArrowDown': e.preventDefault(); goto(si+1); break;
+      case 'ArrowUp': e.preventDefault(); goto(si-1); break;
+      case 'Home': e.preventDefault(); goto(0); break;
+      case 'End': e.preventDefault(); goto(slides.length-1); break;
+      case 'f': case 'F': document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); break;
+    }
+  });
+  deck.addEventListener('click', e=>{ if(e.target.closest('video')||e.target.closest('#tbtn')) return; next(); });
+  addEventListener('hashchange', ()=>{ if(lockHash) return; const n=parseInt(location.hash.slice(1)); if(n>=1&&n<=slides.length){ si=n-1; fi=0; render(); } });
+  function fit(){ deck.style.transform='scale('+Math.min(innerWidth/1280, innerHeight/720)+')'; }
+  addEventListener('resize', fit); fit();
+  const start=parseInt(location.hash.slice(1)); if(start>=1&&start<=slides.length){ si=start-1; }
+  render();
+
+  // break countdown: the button never advances the slide
+  const MIN=10, tbtn=document.getElementById('tbtn'), timer=document.getElementById('timer'), back=document.getElementById('back');
+  let iv=null;
+  tbtn.addEventListener('click', e=>{
+    e.stopPropagation();
+    const end=Date.now()+MIN*60000, t=new Date(end);
+    back.textContent='חוזרים ב-'+String(t.getHours()).padStart(2,'0')+':'+String(t.getMinutes()).padStart(2,'0');
+    tbtn.style.visibility='hidden';
+    clearInterval(iv);
+    iv=setInterval(()=>{
+      const left=Math.max(0,end-Date.now()), m=Math.floor(left/60000), s=Math.floor(left%60000/1000);
+      timer.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+      if(!left) clearInterval(iv);
+    },250);
+  });
+})();
+</script>
+</body>
+</html>
