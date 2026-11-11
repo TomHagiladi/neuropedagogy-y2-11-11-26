@@ -97,6 +97,8 @@ ol.steps .en{display:block;font-size:27px;color:var(--accent-dk);font-weight:700
 .vid-tx{flex:1;min-width:0}
 .vidwrap{flex:0 0 auto;height:624px;display:flex;align-items:center;justify-content:center}
 .vidwrap video{height:100%;aspect-ratio:9/16;border-radius:14px;background:#000;border:6px solid var(--accent-pale);box-shadow:0 10px 34px rgba(0,0,0,.18)}
+.vidwrap.w43{height:auto}
+.vidwrap.w43 video{height:auto;width:760px;aspect-ratio:4/3}
 video::cue{font-family:Heebo,Arial,sans-serif;font-size:22px;line-height:1.35;color:#fff;background:rgba(0,0,0,.72)}
 
 /* ================= MECHANICS - keep ================= */
@@ -157,6 +159,26 @@ html,body{height:100%;background:#2E2D2A;overflow:hidden;font-family:'Heebo',Ari
     <div class="vidwrap">
       <video src="assets/before-the-words.mp4" poster="assets/before-the-words-poster.jpg" controls preload="auto" playsinline>
         <track kind="subtitles" srclang="he" label="עברית" src="assets/before-the-words.he.vtt" default>
+      </video>
+    </div>
+  </div>
+</section>
+
+<!-- 4 video: Emma (Nuance Labs, 9.11.2026), Hebrew subtitles -->
+<section class="slide">
+  <div class="sq o" style="width:80px;height:80px;right:120px;bottom:80px"></div>
+  <div class="sq gf" style="width:38px;height:38px;right:240px;bottom:66px"></div>
+  <div class="vid-split">
+    <div class="vid-tx">
+      <div class="kicker">סרטון</div>
+      <h2 style="font-size:58px">אמה</h2>
+      <div class="rule"></div>
+      <p class="lead">שיחה <span class="r">פנים אל פנים</span> עם בינה מלאכותית</p>
+      <p class="dim" style="font-size:21px;margin-top:18px">ניואנס לאבס, 9.11.2026</p>
+    </div>
+    <div class="vidwrap w43">
+      <video src="assets/emma.mp4" poster="assets/emma-poster.jpg" controls preload="auto" playsinline>
+        <track kind="subtitles" srclang="he" label="עברית" src="assets/emma.he.vtt" default>
       </video>
     </div>
   </div>
