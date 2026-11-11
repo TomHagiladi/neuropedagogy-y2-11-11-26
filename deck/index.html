@@ -93,9 +93,10 @@ ol.steps .en{display:block;font-size:27px;color:var(--accent-dk);font-weight:700
 #back{font-size:34px;font-weight:700;margin-top:14px;min-height:46px}
 .qr{width:270px;height:270px;border:10px solid #fff;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.18)}
 
-.slide.vid-slide{background:#1F1E1C;padding:24px}
-.vidwrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
-.vidwrap video{height:100%;max-height:672px;aspect-ratio:9/16;border-radius:10px;background:#000;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.vid-split{display:flex;gap:60px;flex:1;min-height:0;align-items:center}
+.vid-tx{flex:1;min-width:0}
+.vidwrap{flex:0 0 auto;height:624px;display:flex;align-items:center;justify-content:center}
+.vidwrap video{height:100%;aspect-ratio:9/16;border-radius:14px;background:#000;border:6px solid var(--accent-pale);box-shadow:0 10px 34px rgba(0,0,0,.18)}
 video::cue{font-family:Heebo,Arial,sans-serif;font-size:22px;line-height:1.35;color:#fff;background:rgba(0,0,0,.72)}
 
 /* ================= MECHANICS - keep ================= */
@@ -143,11 +144,21 @@ html,body{height:100%;background:#2E2D2A;overflow:hidden;font-family:'Heebo',Ari
 </section>
 
 <!-- 3 video: Before the Words (EP04), Hebrew subtitles -->
-<section class="slide vid-slide">
-  <div class="vidwrap">
-    <video src="assets/before-the-words.mp4" poster="assets/before-the-words-poster.jpg" controls preload="auto" playsinline>
-      <track kind="subtitles" srclang="he" label="עברית" src="assets/before-the-words.he.vtt" default>
-    </video>
+<section class="slide">
+  <div class="sq o" style="width:90px;height:90px;right:110px;bottom:90px"></div>
+  <div class="sq rf" style="width:42px;height:42px;right:230px;bottom:70px"></div>
+  <div class="vid-split">
+    <div class="vid-tx">
+      <div class="kicker">סרטון</div>
+      <h2 style="font-size:58px">לפני המילים</h2>
+      <div class="rule"></div>
+      <p class="lead">מתי נכון להכניס את <span class="r">הבינה</span> לחשיבה?</p>
+    </div>
+    <div class="vidwrap">
+      <video src="assets/before-the-words.mp4" poster="assets/before-the-words-poster.jpg" controls preload="auto" playsinline>
+        <track kind="subtitles" srclang="he" label="עברית" src="assets/before-the-words.he.vtt" default>
+      </video>
+    </div>
   </div>
 </section>
 
