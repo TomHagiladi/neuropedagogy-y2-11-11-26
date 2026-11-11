@@ -34,7 +34,7 @@ ul{list-style:none}
 .card h4{font-size:32px;font-weight:800;margin-bottom:12px;color:var(--accent-dk)}
 .card p{font-size:26px;line-height:1.5}
 .card.big-t{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.card.big-t .ic{font-size:96px;margin-bottom:26px}
+.card.big-t .ic{font-size:80px;margin-bottom:18px}
 .card.big-t h4{font-size:46px;margin:0}
 .card.tint{background:var(--accent-tint);border-color:var(--accent)}
 .card.red{background:var(--red-pale);border-color:#E9C3C5}
@@ -93,6 +93,11 @@ ol.steps .en{display:block;font-size:27px;color:var(--accent-dk);font-weight:700
 #back{font-size:34px;font-weight:700;margin-top:14px;min-height:46px}
 .qr{width:270px;height:270px;border:10px solid #fff;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.18)}
 
+.slide.vid-slide{background:#1F1E1C;padding:24px}
+.vidwrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
+.vidwrap video{height:100%;max-height:672px;aspect-ratio:9/16;border-radius:10px;background:#000;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+video::cue{font-family:Heebo,Arial,sans-serif;font-size:22px;line-height:1.35;color:#fff;background:rgba(0,0,0,.72)}
+
 /* ================= MECHANICS - keep ================= */
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;background:#2E2D2A;overflow:hidden;font-family:'Heebo',Arial,sans-serif}
@@ -137,6 +142,15 @@ html,body{height:100%;background:#2E2D2A;overflow:hidden;font-family:'Heebo',Ari
   </div>
 </section>
 
+<!-- 3 video: Before the Words (EP04), Hebrew subtitles -->
+<section class="slide vid-slide">
+  <div class="vidwrap">
+    <video src="assets/before-the-words.mp4" poster="assets/before-the-words-poster.jpg" controls preload="auto" playsinline>
+      <track kind="subtitles" srclang="he" label="עברית" src="assets/before-the-words.he.vtt" default>
+    </video>
+  </div>
+</section>
+
 <!-- 3 round A -->
 <section class="slide">
   <div class="kicker">סבב א'</div>
@@ -151,11 +165,12 @@ html,body{height:100%;background:#2E2D2A;overflow:hidden;font-family:'Heebo',Ari
 <section class="slide">
   <div class="kicker">סבב ב'</div>
   <h2>שלושה שחקנים, שלוש מערכות מוטיבציה</h2>
-  <div class="cols" style="height:400px;margin-top:30px">
+  <div class="cols" style="height:300px;margin-top:14px">
     <div class="card tint f big-t"><div class="ic">🎒</div><h4>תלמידים</h4></div>
     <div class="card tint f big-t"><div class="ic">🍎</div><h4>מורים</h4></div>
     <div class="card tint f big-t"><div class="ic">🗝️</div><h4>בעלי תפקידים</h4></div>
   </div>
+  <div class="qbox f" style="margin-top:22px;font-size:31px">מהם הגורמים <span class="g">שמגבירים</span> מוטיבציה, ומהם הגורמים <span class="r">שמדכאים ומפחיתים</span> מוטיבציה, לכל אחד מהשחקנים האלו?</div>
 </section>
 
 <!-- 5 round C -->
