@@ -1,5 +1,9 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>רשת הדרכים הפדגוגית שלנו</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Assistant:wght@400;600;700&display=swap">
 <style>
@@ -58,9 +62,11 @@ button[disabled]{opacity:.6;cursor:wait}
 .status.error{color:var(--err)}
 .thanks{padding-block:48px 64px;text-align:start}
 .thanks h2{font-family:var(--display);font-weight:400;font-size:34px;margin:0 0 10px}
-@media (max-width:480px){.submit{padding-inline-start:0}.hero .wrap{padding-block:40px 28px}}
+@media (max-width:480px){.submit{padding-inline-start:0}.submit button{width:100%}input,textarea{font-size:17px}.hero .wrap{padding-block:40px 28px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
+</head>
+<body>
 
 <header class="hero">
   <canvas id="net" aria-hidden="true"></canvas>
@@ -217,3 +223,5 @@ var ENDPOINT='https://script.google.com/macros/s/AKfycbxFr3tZARCtidCUE7zDtJCvSb-
   });
 })();
 </script>
+</body>
+</html>
