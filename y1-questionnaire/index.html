@@ -1,0 +1,219 @@
+<title>רשת הדרכים הפדגוגית שלנו</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&family=Assistant:wght@400;600;700&display=swap">
+<style>
+/* Layout: single reading column; a living "road network" canvas in the hero, questions as stations along one route */
+:root{
+  --bg:#f3f6f5; --surface:#ffffff; --ink:#15302d; --muted:#557370;
+  --line:#cfdcd9; --accent:#0e7c6b; --accent-ink:#ffffff; --node:#e0a43a; --focus:#0e7c6b33; --err:#b4341f;
+  --display:"Secular One","Assistant",system-ui,sans-serif;
+  --body:"Assistant",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1918; --surface:#172422; --ink:#e3eeec; --muted:#93b0ac; --line:#2b3d3a;
+  --accent:#3fbfa8; --accent-ink:#082320; --node:#f0b955; --focus:#3fbfa833; --err:#ff8a73; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1918; --surface:#172422; --ink:#e3eeec; --muted:#93b0ac; --line:#2b3d3a;
+  --accent:#3fbfa8; --accent-ink:#082320; --node:#f0b955; --focus:#3fbfa833; --err:#ff8a73; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;direction:rtl}
+.wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+#net{position:absolute;inset:0;width:100%;height:100%;opacity:.55}
+.hero .wrap{position:relative;padding-block:56px 40px}
+.eyebrow{font-size:14px;letter-spacing:.04em;color:var(--muted);font-weight:600}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(34px,7vw,54px);line-height:1.1;margin:10px 0 14px;text-wrap:balance}
+.lead{font-size:19px;max-width:56ch;margin:0}
+.guide{margin:28px 0 8px;padding:20px 22px;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.guide h2{font-family:var(--display);font-weight:400;font-size:21px;margin:0 0 8px}
+.guide ul{margin:0;padding-inline-start:20px;display:grid;gap:6px}
+.guide .privacy{margin:12px 0 0;font-size:15px;color:var(--muted)}
+form{display:grid;gap:0;padding-block:12px 48px}
+.station{position:relative;display:grid;grid-template-columns:36px 1fr;gap:14px;padding-block:22px}
+.station::before{content:"";position:absolute;inset-inline-start:17px;top:0;bottom:0;width:2px;background:var(--line)}
+.station:first-child::before{top:36px}.station:last-of-type::before{bottom:calc(100% - 36px)}
+.dot{position:relative;z-index:1;width:36px;height:36px;border-radius:50%;background:var(--surface);border:2px solid var(--line);display:grid;place-items:center;font-weight:700;font-size:15px;color:var(--muted);transition:background .3s,border-color .3s,color .3s}
+.station.filled .dot{background:var(--node);border-color:var(--node);color:#2b1d03}
+.field{min-width:0;display:grid;gap:6px}
+label,.legend{font-weight:700;font-size:18px;line-height:1.35}
+.opt{font-weight:400;font-size:14px;color:var(--muted);margin-inline-start:6px}
+.hint{font-size:15px;color:var(--muted);margin:0}
+input[type=text],textarea{width:100%;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+textarea{min-height:120px;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px var(--focus)}
+.meter{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.meter i{display:block;height:4px;border-radius:2px;background:var(--line);flex:1;max-width:160px;overflow:hidden}
+.meter i b{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{font-weight:600;font-size:16px;display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);cursor:pointer}
+.chips input{accent-color:var(--accent)}
+.chips label:has(input:checked){border-color:var(--accent);box-shadow:0 0 0 3px var(--focus)}
+.submit{display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding-top:18px;padding-inline-start:50px}
+button{font:inherit;font-weight:700;font-size:18px;background:var(--accent);color:var(--accent-ink);border:0;border-radius:12px;padding:14px 28px;cursor:pointer}
+button:focus-visible{outline:3px solid var(--node);outline-offset:3px}
+button[disabled]{opacity:.6;cursor:wait}
+.status{font-size:15px;color:var(--muted)}
+.status.error{color:var(--err)}
+.thanks{padding-block:48px 64px;text-align:start}
+.thanks h2{font-family:var(--display);font-weight:400;font-size:34px;margin:0 0 10px}
+@media (max-width:480px){.submit{padding-inline-start:0}.hero .wrap{padding-block:40px 28px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="hero">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="eyebrow">בתי ספר נוירופדגוגיים משלבי בינה מלאכותית · שנה א' · מפגש ראשון, 18.11.2026</div>
+    <h1>רשת הדרכים הפדגוגית שלנו</h1>
+    <p class="lead">המוח בנוי כרשת של דרכים, וגם קבוצה של אנשי חינוך היא רשת. התשובות שלכם יהיו הצמתים, והבינה המלאכותית תנסה למצוא את הדרכים שמחברות ביניהם. את התוצאה נראה יחד בהמשך המפגש.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="guide" aria-labelledby="g-title">
+    <h2 id="g-title">איך לענות</h2>
+    <ul>
+      <li>ככל שתכתבו בחופשיות ובפירוט, הניתוח יהיה מדויק ועשיר יותר. מילה אחת נותנת לבינה מעט מאוד לעבוד איתו. שניים עד ארבעה משפטים לשאלה זה מצוין.</li>
+      <li>כתבו כמו שהייתם מספרים לעמית קרוב. אין תשובות נכונות או לא נכונות.</li>
+      <li>דוגמאות ורגעים מוחשיים עוזרים יותר מהגדרות כלליות.</li>
+    </ul>
+    <p class="privacy">מספיק שם פרטי. התשובות ישמשו רק לניתוח הקבוצה במסגרת התוכנית, ונציג אותן בתמונה קבוצתית ולא כרשימה של תשובות אישיות.</p>
+  </section>
+
+  <form id="q" novalidate>
+    <div class="station" data-key="name">
+      <div class="dot">1</div>
+      <div class="field">
+        <label for="f-name">שם פרטי</label>
+        <input type="text" id="f-name" name="name" autocomplete="given-name" required>
+      </div>
+    </div>
+
+    <div class="station" data-key="school">
+      <div class="dot">2</div>
+      <div class="field">
+        <label for="f-school">בית הספר</label>
+        <input type="text" id="f-school" name="school" required>
+      </div>
+    </div>
+
+    <div class="station" data-key="role">
+      <div class="dot">3</div>
+      <div class="field">
+        <label for="f-role">תפקיד ומקצוע הוראה</label>
+        <p class="hint">למשל: מחנכת כיתה ד', מלמדת מתמטיקה ומדעים</p>
+        <input type="text" id="f-role" name="role">
+      </div>
+    </div>
+
+    <div class="station" data-key="figure">
+      <div class="dot">4</div>
+      <div class="field">
+        <label for="f-figure">איזו דמות, ספר, סרט או סדרה השפיעו עליכם באופן משמעותי כאנשי חינוך?</label>
+        <p class="hint">זו יכולה להיות גם מורה שהייתה לכם, בן משפחה, דמות היסטורית, דמות מסרט או כל דמות אחרת.</p>
+        <input type="text" id="f-figure" name="figure" required>
+      </div>
+    </div>
+
+    <div class="station" data-key="influence">
+      <div class="dot">5</div>
+      <div class="field">
+        <label for="f-influence">איך זה השפיע עליכם?</label>
+        <p class="hint">מה לקחתם משם, ואיפה זה מופיע היום בעבודה שלכם בכיתה?</p>
+        <textarea id="f-influence" name="influence" required></textarea>
+        <div class="meter" aria-hidden="true"><i><b></b></i><span>0 מילים</span></div>
+      </div>
+    </div>
+
+    <div class="station" data-key="fulfil">
+      <div class="dot">6</div>
+      <div class="field">
+        <label for="f-fulfil">מה ממלא אתכם ונותן לכם סיפוק בעבודה?</label>
+        <p class="hint">אפשר לכתוב באופן כללי, או לספר על רגע אחד מהתקופה האחרונה שבו הרגשתם את זה. מה שנוח לכם.</p>
+        <textarea id="f-fulfil" name="fulfil" required></textarea>
+        <div class="meter" aria-hidden="true"><i><b></b></i><span>0 מילים</span></div>
+      </div>
+    </div>
+
+    <div class="station" data-key="challenge">
+      <div class="dot">7</div>
+      <div class="field">
+        <label for="f-challenge">מה הכי מאתגר אתכם היום בכיתה או בבית הספר?<span class="opt">רשות</span></label>
+        <textarea id="f-challenge" name="challenge"></textarea>
+        <div class="meter" aria-hidden="true"><i><b></b></i><span>0 מילים</span></div>
+      </div>
+    </div>
+
+    <div class="station" data-key="ai">
+      <div class="dot">8</div>
+      <div class="field">
+        <div class="legend" id="l-ai">איך אתם משתמשים היום בבינה מלאכותית?</div>
+        <div class="chips" role="radiogroup" aria-labelledby="l-ai">
+          <label><input type="radio" name="ai" id="f-ai-1" value="עוד לא ניסיתי"> עוד לא ניסיתי</label>
+          <label><input type="radio" name="ai" id="f-ai-2" value="ניסיתי פעם-פעמיים"> ניסיתי פעם-פעמיים</label>
+          <label><input type="radio" name="ai" id="f-ai-3" value="מדי פעם"> מדי פעם</label>
+          <label><input type="radio" name="ai" id="f-ai-4" value="באופן קבוע בעבודה"> באופן קבוע בעבודה</label>
+        </div>
+        <label for="f-aiuse" class="hint" style="font-weight:400;margin-top:6px">אם אתם משתמשים, במה בעיקר?<span class="opt">רשות</span></label>
+        <input type="text" id="f-aiuse" name="aiuse">
+      </div>
+    </div>
+
+    <div class="submit">
+      <button type="submit" id="send">שליחה לרשת</button>
+      <span class="status" id="status" role="status"></span>
+    </div>
+  </form>
+
+  <section class="thanks" id="thanks" hidden>
+    <h2>התשובה שלכם נוספה לרשת</h2>
+    <p>תודה. בעוד כמה דקות נראה יחד אילו דרכים מחברות בין כולנו.</p>
+  </section>
+</main>
+
+<script>
+var ENDPOINT='https://script.google.com/macros/s/AKfycbxFr3tZARCtidCUE7zDtJCvSb-b9ZDhQQLsT6QMMVU23OsPxEKTZPXGu3v1llwoPGCn/exec';
+(function(){
+  // background road network
+  var c=document.getElementById('net'),x=c.getContext('2d'),pts=[],W,H,dpr=Math.min(window.devicePixelRatio||1,2);
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function col(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()}
+  function size(){var r=c.getBoundingClientRect();W=r.width;H=r.height;c.width=W*dpr;c.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0)}
+  function seed(){pts=[];var n=Math.round(Math.max(18,W*H/9000));for(var i=0;i<n;i++)pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.15,r:Math.random()<.15?3.5:2})}
+  function draw(){x.clearRect(0,0,W,H);var line=col('--line'),acc=col('--accent'),node=col('--node');
+    for(var i=0;i<pts.length;i++){var p=pts[i];if(!reduce){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1}
+      for(var j=i+1;j<pts.length;j++){var q=pts[j],d=Math.hypot(p.x-q.x,p.y-q.y);if(d<120){x.strokeStyle=d<60?acc:line;x.globalAlpha=1-d/120;x.lineWidth=1;x.beginPath();x.moveTo(p.x,p.y);x.lineTo(q.x,q.y);x.stroke()}}}
+    x.globalAlpha=1;pts.forEach(function(p){x.fillStyle=p.r>3?node:acc;x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill()});
+    if(!reduce)requestAnimationFrame(draw)}
+  size();seed();draw();window.addEventListener('resize',function(){size();seed();if(reduce)draw()});
+
+  // fill state + word meters
+  var form=document.getElementById('q');
+  function words(s){s=s.trim();return s?s.split(/\s+/).length:0}
+  function refresh(){document.querySelectorAll('.station').forEach(function(st){
+      var filled=false;st.querySelectorAll('input[type=text],textarea').forEach(function(el){if(el.value.trim())filled=true});
+      st.querySelectorAll('input[type=radio]').forEach(function(el){if(el.checked)filled=true});
+      st.classList.toggle('filled',filled);
+      var ta=st.querySelector('textarea'),m=st.querySelector('.meter');
+      if(ta&&m){var w=words(ta.value);m.querySelector('b').style.width=Math.min(100,w/40*100)+'%';
+        m.querySelector('span').textContent=w+' מילים'+(w>=25?' · מצוין':w>=10?' · אפשר עוד קצת':'')}})}
+  form.addEventListener('input',refresh);form.addEventListener('change',refresh);
+
+  var status=document.getElementById('status'),btn=document.getElementById('send');
+  function done(){form.hidden=true;document.querySelector('.guide').hidden=true;document.getElementById('thanks').hidden=false;window.scrollTo(0,0)}
+  function fail(msg){btn.disabled=false;status.className='status error';status.textContent=msg||'השליחה לא הצליחה. בדקו את החיבור לאינטרנט ונסו שוב.'}
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var miss=[].slice.call(form.querySelectorAll('[required]')).filter(function(el){return !el.value.trim()});
+    if(miss.length){status.className='status error';status.textContent='נשארו כמה שדות חובה ריקים.';miss[0].focus();return}
+    var fd={};['name','school','role','figure','influence','fulfil','challenge','aiuse'].forEach(function(k){fd[k]=(form.elements[k].value||'').trim()});
+    var r=form.querySelector('input[name=ai]:checked');fd.ai=r?r.value:'';
+    fd.words=words([fd.influence,fd.fulfil,fd.challenge].join(' '));
+    btn.disabled=true;status.className='status';status.textContent='שולחים…';
+    fetch(ENDPOINT,{method:'POST',mode:'no-cors',credentials:'omit',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(fd)})
+      .then(function(){done()}).catch(function(){fail()});
+  });
+})();
+</script>
