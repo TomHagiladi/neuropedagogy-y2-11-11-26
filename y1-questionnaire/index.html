@@ -16,6 +16,7 @@
   --body:"Assistant",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html,body{margin:0}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;direction:rtl}
 .wrap{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
@@ -56,6 +57,7 @@ button[disabled]{opacity:.6;cursor:wait}
 .status{font-size:15px;color:var(--muted)}
 .status.error{color:var(--err)}
 .thanks{padding-block:48px 64px;text-align:start}
+.thanks .again{margin-top:24px;background:var(--surface);color:var(--accent);border:2px solid var(--accent)}
 .thanks h2{font-family:var(--display);font-weight:400;font-size:34px;margin:0 0 10px}
 @media (max-width:480px){.submit{padding-inline-start:0}.submit button{width:100%}input,textarea{font-size:17px}.hero .wrap{padding-block:40px 28px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -83,12 +85,12 @@ button[disabled]{opacity:.6;cursor:wait}
     <p class="privacy">מספיק שם פרטי. התשובות ישמשו רק לניתוח הקבוצה במסגרת התוכנית, ונציג אותן בתמונה קבוצתית ולא כרשימה של תשובות אישיות.</p>
   </section>
 
-  <form id="q" novalidate>
+  <form id="q" novalidate autocomplete="off">
     <div class="station" data-key="name">
       <div class="dot">1</div>
       <div class="field">
         <label for="f-name">שם פרטי</label>
-        <input type="text" id="f-name" name="name" autocomplete="given-name" required>
+        <input type="text" id="f-name" name="name" autocomplete="off" required>
       </div>
     </div>
 
@@ -171,6 +173,7 @@ button[disabled]{opacity:.6;cursor:wait}
   <section class="thanks" id="thanks" hidden>
     <h2>התשובה שלכם נוספה לרשת</h2>
     <p>תודה. בעוד כמה דקות נראה יחד אילו דרכים מחברות בין כולנו.</p>
+    <button type="button" id="again" class="again">מילוי נוסף עבור מישהו אחר</button>
   </section>
 </main>
 
@@ -203,7 +206,15 @@ var ENDPOINT='https://script.google.com/macros/s/AKfycbxFr3tZARCtidCUE7zDtJCvSb-
   form.addEventListener('input',refresh);form.addEventListener('change',refresh);
 
   var status=document.getElementById('status'),btn=document.getElementById('send');
-  function done(){form.hidden=true;document.querySelector('.guide').hidden=true;document.getElementById('thanks').hidden=false;window.scrollTo(0,0)}
+  function done(){form.hidden=true;document.querySelector('.guide').hidden=true;document.getElementById('thanks').hidden=false;window.scrollTo(0,0);
+    try{history.replaceState(null,'',location.pathname)}catch(e){}}
+  document.getElementById('again').addEventListener('click',function(){
+    form.reset();[].forEach.call(form.querySelectorAll('input:not([type=radio]),textarea'),function(el){el.value=''});
+    [].forEach.call(form.querySelectorAll('input[type=radio]'),function(el){el.checked=false});
+    try{localStorage.clear();sessionStorage.clear()}catch(e){}
+    btn.disabled=false;status.className='status';status.textContent='';refresh();
+    document.getElementById('thanks').hidden=true;form.hidden=false;document.querySelector('.guide').hidden=false;
+    window.scrollTo(0,0);});
   function fail(msg){btn.disabled=false;status.className='status error';status.textContent=msg||'השליחה לא הצליחה. בדקו את החיבור לאינטרנט ונסו שוב.'}
   form.addEventListener('submit',function(e){
     e.preventDefault();
